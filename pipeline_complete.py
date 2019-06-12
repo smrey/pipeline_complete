@@ -22,10 +22,12 @@ def sample_level(directory):
     panels_path_list = [os.path.join(directory, d) for d in panels_list]
     print(panels_path_list)
 
-    print([os.listdir(x) for x in panels_path_list])
+    panels_samples_list = ([filter(lambda x: os.path.isdir(os.path.join(y, x)), os.listdir(y)) for y in panels_path_list])
+    print([f for f in panels_samples_list])
+    
+    #samples_path_list = [os.path.join(directory, di) for di in samples_list]
+    #print(samples_path_list)
 
-    #samples_list = filter(lambda x: os.path.isdir(os.path.join(panels_path_list, x)), os.listdir(panels_path_list))
-    #print(samples_list)
 
     return None
 
