@@ -2,6 +2,7 @@ import os
 import sys
 
 path_to_data = os.path.join("/","Users","sararey","tmp") # hard code to results directory
+path_to_data = os.path.join("C:\\","Users","saram","Documents","Work","mockdata")
 dirlist = os.listdir(path_to_data)
 
 run_id = "190524_D00501_0318_BHYMM2BCX2" # need to obtain on the fly
@@ -19,6 +20,7 @@ def main():
 
 def sample_level(directory):
     panels_list = filter(lambda x: os.path.isdir(os.path.join(directory, x)), os.listdir(directory))
+    print(panels_list)
     panels_path_list = [os.path.join(directory, d) for d in panels_list]
     print(panels_path_list)
 
