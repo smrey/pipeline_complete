@@ -22,41 +22,29 @@ def main(): #pass global variables in?
     # load variables file and identify pipeline- assumes that each panel has at least one sample
     try:
         print("loading variables file")
-        panels_fullpath_filter = filter(lambda x: os.path.isdir(os.path.join(run_path, x)), os.listdir(run_path))
-        panels_fullpath = [os.path.join(run_path, p) for p in panels_fullpath_filter]
-        print(panels_fullpath)
-
-        print("more than one panel")
-        print(panels_fullpath)
-        # Obtain just panel name without leading path
-        panels = ([os.path.split(i)[-1] for i in panels_fullpath])
+        # Parse all panels
+        panels_fullpath = (parse_directory(run_path))
+        #print(panels_fullpath)
         # Create nested dictionary
         panels_dict = {}
         # Obtain samples and parse variables files
         for p in panels_fullpath:
-            samples_fullpath_filter = filter(lambda x: os.path.isdir(os.path.join(p, x)),
-                                                os.listdir(p))
-            samples_fullpath = [os.path.join(run_path, f) for f in samples_fullpath_filter]
-            #panels_samples = [os.path.split(i)[-1] for i in samples_fullpath]
             # Obtain just panel name without leading path
             panel_name = os.path.split(p)[-1]
-            #print(panels_samples)
-
+            # Create dictionary to hold all the samples as keys
             samples_dict = {}
+            # Parse all samples
+            samples_fullpath = parse_directory(p)
 
-            # Add data to nested dictionary
             for ps in samples_fullpath:
                 #print(glob.glob(os.path.join(p, ps, "*.variables")))
-                print(ps)
                 samples_name = os.path.split(ps)[-1]
-                print(samples_name)
                 # Add second key to dictionary
                 values_dict = {}
                 # Parse variables file
                 with open(os.path.join(p, samples_name, samples_name + ".variables")) as f:
                     for line in f:
                         if not (line.startswith("#") or line.isspace()):
-                            print(line.rstrip())
                             divide_line = line.rstrip().split("=")
                             variable = divide_line[0]
                             value = divide_line[1]
@@ -92,22 +80,11 @@ def load_variables():
     return None
 
 
-def sample_level(run_directory):
-    for i in run_directory:
-        print(i)
-        samples_list = filter(lambda x: os.path.isdir(os.path.join(i, x)), os.listdir(i))
-        samples_path_list = [os.path.join(i, s) for s in samples_list]
-        print(samples_path_list)
-
-    return None
-
-
-def panel_level(panel_directory):
+def parse_directory(panel_directory):
     panels_list = filter(lambda x: os.path.isdir(os.path.join(panel_directory, x)), os.listdir(panel_directory))
     panels_path_list = [os.path.join(panel_directory, d) for d in panels_list]
-    print(panels_path_list)
+    return (panels_path_list)
 
-    return None
 
 def check_run_level():
     return None
