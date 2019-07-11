@@ -53,6 +53,7 @@ def check_results_folder_exists(run_directory):
     except:
         raise Exception(f"There is no results folder for run {run_id} also {run_path}")
 
+
 def load_variables(input_path):
     '''
     :param input_path: the path to the run folder
@@ -82,6 +83,7 @@ def load_variables(input_path):
                         values_dict[variable] = value
             samples_dict[samples_name] = values_dict
     return samples_dict
+
 
 def load_variables_archived(input_path):
     '''
@@ -119,6 +121,7 @@ def load_variables_archived(input_path):
         panels_dict[panel_name] = samples_dict
     return panels_dict
 
+
 def get_pipeline_name(dict):
     '''
     :param dict: dictionary containing the data from the variables files (output from load_variables)
@@ -144,6 +147,10 @@ def parse_directory(input_directory):
 
 
 def check_run_level(path):
+    '''
+    :param path:
+    :return:
+    '''
     panels = parse_directory(path)
     print(panels)
     return None
